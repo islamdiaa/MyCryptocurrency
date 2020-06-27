@@ -1,13 +1,12 @@
 {
-  "name": "neqod-chain",
+  "name": "MyCryptoCurrency",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
-    "dev-test": "nodemon dev-test",
-    "start": "node ./app",
-    "dev": "nodemon ./app"
+    "start": "node ./src/app",
+    "dev": "nodemon ./src/app"
   },
 	"jest": {
 		"testEnvironment": "node"
