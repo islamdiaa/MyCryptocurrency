@@ -12,3 +12,11 @@ The blockchain is a revolutionary technology that allows for the secure, distrib
 - Sign Transactions with cryptography and digital signature.
 - Create a Transaction Pool for a real-time list of incoming data.
 - Include transactions in core blocks of the chain.
+
+## Run instructions
+- npm run test: To run the test suite
+- npm run dev: To run the server on the dev mode
+- npm run start: Start the server
+- HTTP_PORT=<X> P2P_PORT=<Y> PEERS=ws://localhost:<Z> npm run dev: Run the server on http port X and p2p connection port Y and connect with peer running on port Z
+- npm run flow:check: To run flow checks
+- npm run flow:build: To transpile flow to js
