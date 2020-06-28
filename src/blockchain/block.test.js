@@ -1,6 +1,7 @@
 const Block = require('./block');
 const Transaction = require('../wallet/transaction');
 const Wallet = require('../wallet/wallet');
+const {GENESIS_DATA} = require('../config');
 
 describe('Block', () => {
 	let data, lastBlock, block;
@@ -11,10 +12,33 @@ describe('Block', () => {
 		block = Block.mineBlock(lastBlock, data);
 	});
 
+	describe('genesis()', () => {
+		const genesisBlock = Block.genesis();
+
+		it ('returns a Block instance', () => {
+			expect(genesisBlock instanceof Block).toBe(true);
+		});
+
+		it ('returns the genesis data', () => {
+			expect(genesisBlock).toEqual(GENESIS_DATA);
+		});
+	});
+
+	it('mined block is instance of Block', () => {
+			expect(block instanceof Block).toEqual(true);
+		}
+	);
+
 	it(
 		'sets the data to match the given input',
 		() => {
 			expect(block.data).toEqual(data);
+		}
+	);
+
+	it('timestamp is defined', () => {
+			expect(block.timestamp).not.toEqual(undefined);
+			expect(block.timestamp).toBeGreaterThan(0);
 		}
 	);
 
@@ -28,7 +52,9 @@ describe('Block', () => {
 	it(
 		'generates a hash that matches the difficulty',
 		() => {
-			expect(block.hash.substring(0, block.difficulty)).toEqual('0'.repeat(block.difficulty));
+			expect(
+				block.hash.substring(0, block.difficulty)
+			).toEqual('0'.repeat(block.difficulty));
 	});
 
 	it('lowers the difficulty for slowly mined blocks',

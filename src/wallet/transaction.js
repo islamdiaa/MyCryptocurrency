@@ -62,7 +62,7 @@ class Transaction {
 	): Transaction {
 		if (amount > senderWallet.balance) {
 			console.log(`Amount: ${amount} exceeds balance.`);
-			throw("Amount exceeds the balance");
+			throw "Amount exceeds the balance";
 		}
 		return Transaction.transactionsWithOutputs(senderWallet, [
 				{amount: senderWallet.balance - amount, address: senderWallet.publicKey},

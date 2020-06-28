@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --verbose ./lib",
+    "test": "yarn jest --watchAll --verbose ./src",
     "start": "node ./lib/app",
     "dev": "nodemon ./lib/app",
     "flow": "flow",
@@ -28,6 +28,10 @@
     "ws": "^7.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "babel-jest": "^26.1.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "flow-bin": "^0.128.0",
     "flow-remove-types": "^2.128.0",
     "flow-typed": "^3.1.0",

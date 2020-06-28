@@ -1,7 +1,7 @@
 // @flow
 
 const SHA256 = require('crypto-js/sha256');
-const {DIFFICULTY, MINE_RATE} = require('../config');
+const {DIFFICULTY, MINE_RATE, GENESIS_DATA} = require('../config');
 const ChainUtil = require('../chain-util');
 const Transaction = require('../wallet/transaction');
 
@@ -15,13 +15,15 @@ class Block {
 
 	// Constructor
 	constructor(
-		timestamp: number,
-		lastHash: string,
-		hash: string,
-		data: Array<Transaction>,
-		nonce: number,
-		difficulty: number
-	) {
+		buildData: {
+			timestamp: number,
+			lastHash: string,
+			hash: string,
+			data: Array<Transaction>,
+			nonce: number,
+			difficulty: number
+	}) {
+		const {timestamp, lastHash, hash, data, nonce, difficulty} = buildData;
 		this.timestamp = timestamp;
 		this.lastHash = lastHash;
 		this.hash = hash;
@@ -41,7 +43,7 @@ class Block {
 	}
 
 	static genesis() {
-		return new this(0, '------', 'f1r57-h45h', [], 0, DIFFICULTY);
+		return new this(GENESIS_DATA);
 	}
 
 	static mineBlock(lastBlock: Block, data: Array<Transaction>) {
@@ -57,7 +59,7 @@ class Block {
 			hash = Block.hash(timestamp, lastHash, data, nonce, difficulty);
 		} while(hash.substring(0, difficulty) !== '0'.repeat(difficulty));
 
-		return new this(timestamp, lastHash, hash, data, nonce, difficulty);
+		return new this({timestamp, lastHash, hash, data, nonce, difficulty});
 	}
 
 	static hash(
