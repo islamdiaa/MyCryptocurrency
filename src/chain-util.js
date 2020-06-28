@@ -1,3 +1,5 @@
+// @flow
+
 const EC = require('elliptic').ec;
 const uuidV1 = require('uuid').v1;
 const ec = new EC('secp256k1');
@@ -12,11 +14,11 @@ class ChainUtil {
 		return uuidV1();
 	}
 
-	static hash(data) {
+	static hash(data: any): string {
 		return SHA256(JSON.stringify(data)).toString();
 	}
 
-	static verifySignature(publicKey, signature, dataHash) {
+	static verifySignature(publicKey: string, signature: string, dataHash: string) {
 		return ec.keyFromPublic(publicKey, 'hex').verify(dataHash, signature);
 	}
 }

@@ -1,11 +1,13 @@
 const Transaction = require('../wallet/transaction');
 
 class TransactionPool {
+  transactions: Array<Transaction>;
+
   constructor() {
     this.transactions = [];
   }
 
-  updateOrAddTransaction(transaction) {
+  updateOrAddTransaction(transaction: Transaction) {
     let transactionWithId = this.transactions.find(
       t => t.id === transaction.id
     );
@@ -18,24 +20,26 @@ class TransactionPool {
     }
   }
 
-  existingTransaction(address) {
-    return this.transactions.find(t => t.input.address === address);
+  existingTransaction(address: string) {
+    return this.transactions.find(t => t.input && t.input.address === address);
   }
 
-  validTransactions() {
+  validTransactions(): Array<Transaction> {
     return this.transactions.filter(transaction => {
       const totalOutput = transaction.outputs.reduce((total, output) => {
         return total + output.amount;
       }, 0);
 
-      if (transaction.input.amount !== totalOutput) {
+      if (transaction.input && transaction.input.amount !== totalOutput) {
         console.log(`Invalid transaction from ${transaction.input.address}.`);
-        return;
+        return null;
       }
 
       if (!Transaction.verifyTransaction(transaction)) {
-        console.log(`Invalid transaction from ${transaction.input.address}.`);
-        return;
+        if (transaction.input) {
+          console.log(`Invalid transaction from ${transaction.input.address}.`);
+        }
+        return null;
       }
 
       return transaction;

@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
-    "start": "node ./src/app",
-    "dev": "nodemon ./src/app"
+    "test": "jest --watchAll --verbose ./lib",
+    "start": "node ./lib/app",
+    "dev": "nodemon ./lib/app",
+    "flow": "flow",
+    "flow:check": "flow check ./src/",
+    "flow:deps": "flow-typed install",
+    "flow:build": "flow-remove-types ./src/ -d ./lib/ --all --pretty"
   },
-	"jest": {
-		"testEnvironment": "node"
-	},
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,11 +23,18 @@
     "crypto-js": "^4.0.0",
     "elliptic": "^6.5.3",
     "express": "^4.17.1",
+    "semver": "^7.3.2",
     "uuid": "^8.2.0",
     "ws": "^7.3.0"
   },
   "devDependencies": {
+    "flow-bin": "^0.128.0",
+    "flow-remove-types": "^2.128.0",
+    "flow-typed": "^3.1.0",
     "jest": "^26.0.1",
     "nodemon": "^2.0.4"
+  },
+  "resolutions": {
+    "flow-typed/semver": "7.1.3"
   }
 }

@@ -1,8 +1,23 @@
-const Wallet = require('../wallet');
+// @flow
+
+const Wallet = require('../wallet/wallet');
 const Transaction = require('../wallet/transaction');
+const TransactionPool = require('../wallet/transaction-pool');
+const Blockchain = require('../blockchain');
+const P2PServer = require('../app/p2p-server');
 
 class Miner {
-  constructor(blockchain, transactionPool, wallet, p2pServer) {
+  blockchain: Blockchain;
+  transactionPool: TransactionPool;
+  wallet: Wallet;
+  p2pServer: P2PServer;
+
+  constructor(
+    blockchain: Blockchain,
+    transactionPool: TransactionPool,
+    wallet: Wallet,
+    p2pServer: P2PServer
+  ) {
     this.blockchain = blockchain;
     this.transactionPool = transactionPool;
     this.wallet = wallet;
