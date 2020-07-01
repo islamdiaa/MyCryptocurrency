@@ -2,6 +2,7 @@ const Block = require('./block');
 const Transaction = require('../wallet/transaction');
 const Wallet = require('../wallet/wallet');
 const {GENESIS_DATA} = require('../config');
+const hexToBinary = require('hex-to-binary');
 
 describe('Block', () => {
 	let data, lastBlock, block;
@@ -53,7 +54,7 @@ describe('Block', () => {
 		'generates a hash that matches the difficulty',
 		() => {
 			expect(
-				block.hash.substring(0, block.difficulty)
+				hexToBinary(block.hash).substring(0, block.difficulty)
 			).toEqual('0'.repeat(block.difficulty));
 	});
 
