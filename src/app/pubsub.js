@@ -1,4 +1,7 @@
+// @flow
+
 const redis = require('redis');
+const Blockchain = require('../blockchain');
 
 const CHANNELS = {
   TEST: 'TEST',
@@ -6,11 +9,11 @@ const CHANNELS = {
 }
 
 class PubSub {
-  blockchain: any;
+  blockchain: Blockchain;
   publisher: any;
   subscriber: any;
 
-  constructor(blockchain: any) {
+  constructor(blockchain: Blockchain) {
     this.blockchain = blockchain;
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
