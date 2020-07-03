@@ -24,7 +24,7 @@ const bc = new Blockchain();
 const tp = new TransactionPool();
 const wallet = new Wallet();
 const miner = new Miner(bc, tp, wallet);
-const pubsub = new PubSub(bc);
+const pubsub = new PubSub(bc, tp);
 
 app.use(bodyParser.json());
 
@@ -54,6 +54,7 @@ app.get('/mine-transactions', (req, res) => {
 app.post('/transact', (req, res) => {
 	const { recipient, amount } = req.body;
 	const transaction = wallet.createTransaction(recipient, amount, bc, tp);
+	pubsub.broadcastTransaction(transaction);
 	res.redirect('/transactions');
 });
 
