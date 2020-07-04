@@ -3,3 +3,4 @@ package-lock.json
 .cache
 .watchmanconfig
 .eslintrc.json
+client/dist
