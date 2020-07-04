@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import Transaction from './Transaction';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import history from '../history';
 
 const POLL_INTERVAL_MS = 1000;
 
@@ -13,10 +15,28 @@ class TransactionPool extends Component {
       .then(json => this.setState({transactionPool: json}));
   }
 
+  fetchMineTransactions = () => {
+    fetch(`${document.location.origin}/api/mine-transactions`)
+      .then(response => {
+        if (response.status === 200) {
+          history.push('/block');
+        } else {
+          alert('The mine-transactions block request failed!');
+        }
+      });
+  }
+
   componentDidMount() {
     this.fetchTransactionPool();
 
-    setInterval(() => this.fetchTransactionPool(), POLL_INTERVAL_MS);
+    this.fetchPoolMapInterval =
+      setInterval(
+        () => this.fetchTransactionPool(), POLL_INTERVAL_MS
+      );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchPoolMapInterval);
   }
 
   render() {
@@ -34,6 +54,11 @@ class TransactionPool extends Component {
             );
           })
         }
+        <hr />
+        <Button
+          onClick={this.fetchMineTransactions}>
+          Mine the Transactions
+        </Button>
       </div>
     );
   }

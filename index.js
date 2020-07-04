@@ -50,7 +50,7 @@ app.post('/api/mine', (req, res) => {
 app.get('/api/mine-transactions', (req, res) => {
 	const block = miner.mine();
 	console.log(`New block added: ${block.toString()}`);
-	res.redirect('/blocks');
+	res.redirect('/api/blocks');
 });
 
 app.post('/api/transact', (req, res) => {

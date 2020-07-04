@@ -5,7 +5,7 @@ const MINING_REWARD = 50;
 const GENESIS_DATA = {
   timestamp: 1,
   lastHash: '---',
-  hash: 'hash-one',
+  hash: '!!GensisBlock!!',
   data: [],
   nonce: 0,
   difficulty: DIFFICULTY
