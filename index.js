@@ -30,15 +30,15 @@ const miner = new Miner(bc, tp, wallet, pubsub);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client/dist')));
 
-app.get('/blocks', (req, res) => {
+app.get('/api/blocks', (req, res) => {
 	res.json(bc.chain);
 });
 
-app.get('/transactions', (req, res) => {
+app.get('/api/transactions', (req, res) => {
 	res.json(tp.transactions);
 });
 
-app.post('/mine', (req, res) => {
+app.post('/api/mine', (req, res) => {
 	const block = bc.addBlock(req.body.data);
 	console.log(`New block added: ${block.toString()}`);
 
@@ -47,28 +47,28 @@ app.post('/mine', (req, res) => {
 	res.redirect('/blocks');
 });
 
-app.get('/mine-transactions', (req, res) => {
+app.get('/api/mine-transactions', (req, res) => {
 	const block = miner.mine();
 	console.log(`New block added: ${block.toString()}`);
 	res.redirect('/blocks');
 });
 
-app.post('/transact', (req, res) => {
+app.post('/api/transact', (req, res) => {
 	const { recipient, amount } = req.body;
 	const transaction = wallet.createTransaction(recipient, amount, bc, tp);
 	pubsub.broadcastTransaction(transaction);
 	res.json({ type: 'success', transaction });
 });
 
-app.get('/balance', (req, res) => {
+app.get('/api/balance', (req, res) => {
   res.json({ balance: wallet.calculateBalance(bc) });
 });
 
-app.get('/wallet-info', (req, res) => {
+app.get('/api/wallet-info', (req, res) => {
   res.json( {...wallet.getInfo()} );
 });
 
-app.get('/public-key', (req, res) => {
+app.get('/api/public-key', (req, res) => {
   res.json({ publicKey: wallet.publicKey });
 });
 
