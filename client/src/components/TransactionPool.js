@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Transaction from './Transaction';
 import {Link} from 'react-router-dom';
 
+const POLL_INTERVAL_MS = 1000;
+
 class TransactionPool extends Component {
   state = {transactionPool: []};
 
@@ -13,6 +15,8 @@ class TransactionPool extends Component {
 
   componentDidMount() {
     this.fetchTransactionPool();
+
+    setInterval(() => this.fetchTransactionPool(), POLL_INTERVAL_MS);
   }
 
   render() {
