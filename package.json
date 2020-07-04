@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "yarn jest --watchAll --verbose ./src",
-    "start": "npm run start-redis && node ./src/app",
+    "start": "npm run start-redis && node ./lib/app",
     "start-redis": "redis-server --daemonize yes",
-    "dev": "npm run start-redis && nodemon ./src/app",
-    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon ./src/app",
+    "dev": "npm run start-redis && nodemon ./lib/app",
+    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon ./lib/app",
     "flow": "flow",
     "flow:check": "flow check ./src/",
     "flow:deps": "flow-typed install",

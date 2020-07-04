@@ -46,6 +46,10 @@ class TransactionPool {
     });
   }
 
+  replaceTransactionPool(transactions: Array<Transaction>) {
+    this.transactions = transactions;
+  }
+
   clear() {
     this.transactions = [];
   }

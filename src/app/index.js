@@ -66,7 +66,7 @@ app.get('/public-key', (req, res) => {
   res.json({ publicKey: wallet.publicKey });
 });
 
-const syncChains = () => {
+const syncWithRootState = () => {
 	if (!PEER_PORT) {
 		return;
 	}
@@ -79,12 +79,22 @@ const syncChains = () => {
 			console.log('Error with http request: ', error);
 		}
 	});
+
+	request({url: `${ROOT_NODE_ADDRESS}/transactions`}, (error, response, body) => {
+		if (!error && response.statusCode === 200) {
+			const rootTp = JSON.parse(body);
+			tp.replaceTransactionPool(rootTp);
+			console.log('Replace transaction pool on sync with', rootTp);
+		} else {
+			console.log('Error with http request: ', error);
+		}
+	});
 }
 
 app.listen(
 	PEER_PORT || DEFAULT_PORT,
 	() => {
 		console.log(`Listen on port ${PEER_PORT || DEFAULT_PORT}`);
-		syncChains();
+		syncWithRootState();
 	}
 );
