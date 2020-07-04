@@ -1,4 +1,4 @@
-// 
+//
 
 const Wallet = require('../wallet/wallet');
 const Transaction = require('../wallet/transaction');
@@ -6,18 +6,17 @@ const TransactionPool = require('../wallet/transaction-pool');
 const Blockchain = require('../blockchain');
 
 class Miner {
-  blockchain;
-  transactionPool;
-  wallet;
 
   constructor(
     blockchain,
     transactionPool,
     wallet,
+    pubsub
   ) {
     this.blockchain = blockchain;
     this.transactionPool = transactionPool;
     this.wallet = wallet;
+    this.pubsub = pubsub;
   }
 
   mine() {
@@ -28,12 +27,9 @@ class Miner {
     // create a block consisting of valid transactions
     const block = this.blockchain.addBlock(validTransactions);
 
-    // sync chains in the p2p server
+    this.pubsub.broadcastChain();
 
-    // clear the transaction pool
     this.transactionPool.clear();
-
-    // broadcast to clear trnasactions pools
 
 
     return block;

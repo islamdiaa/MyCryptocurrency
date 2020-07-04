@@ -24,8 +24,8 @@ const app = express();
 const bc = new Blockchain();
 const tp = new TransactionPool();
 const wallet = new Wallet();
-const miner = new Miner(bc, tp, wallet);
 const pubsub = new PubSub(bc, tp);
+const miner = new Miner(bc, tp, wallet, pubsub);
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './client/dist')));
@@ -57,7 +57,7 @@ app.post('/transact', (req, res) => {
 	const { recipient, amount } = req.body;
 	const transaction = wallet.createTransaction(recipient, amount, bc, tp);
 	pubsub.broadcastTransaction(transaction);
-	res.redirect('/transactions');
+	res.json({ type: 'success', transaction });
 });
 
 app.get('/balance', (req, res) => {
@@ -73,7 +73,7 @@ app.get('/public-key', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+	res.sendFile(path.join(__dirname, './client/dist/index.html'));
 });
 
 const syncWithRootState = () => {
