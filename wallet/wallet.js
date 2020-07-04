@@ -85,9 +85,9 @@ class Wallet {
 		return balance;
 	}
 
-	getInfo() {
+	getInfo(blockchain) {
 		return {
-			balance: this.balance,
+			balance: this.calculateBalance(blockchain),
 			address: this.publicKey
 		}
 	}

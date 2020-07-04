@@ -65,7 +65,7 @@ app.get('/api/balance', (req, res) => {
 });
 
 app.get('/api/wallet-info', (req, res) => {
-  res.json( {...wallet.getInfo()} );
+  res.json( {...wallet.getInfo(bc)} );
 });
 
 app.get('/api/public-key', (req, res) => {
