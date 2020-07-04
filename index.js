@@ -80,7 +80,7 @@ const syncWithRootState = () => {
 	if (!PEER_PORT) {
 		return;
 	}
-	request({url: `${ROOT_NODE_ADDRESS}/blocks`}, (error, response, body) => {
+	request({url: `${ROOT_NODE_ADDRESS}/api/blocks`}, (error, response, body) => {
 		if (!error && response.statusCode === 200) {
 			const rootChain = JSON.parse(body);
 			bc.replaceChain(rootChain);
@@ -90,7 +90,7 @@ const syncWithRootState = () => {
 		}
 	});
 
-	request({url: `${ROOT_NODE_ADDRESS}/transactions`}, (error, response, body) => {
+	request({url: `${ROOT_NODE_ADDRESS}/api/transactions`}, (error, response, body) => {
 		if (!error && response.statusCode === 200) {
 			const rootTp = JSON.parse(body);
 			tp.replaceTransactionPool(rootTp);
