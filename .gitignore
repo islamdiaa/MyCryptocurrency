@@ -4,3 +4,4 @@ package-lock.json
 .watchmanconfig
 .eslintrc.json
 client/dist
+node_modules
