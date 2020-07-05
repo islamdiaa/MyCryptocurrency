@@ -71,7 +71,8 @@ class ConductTransaction extends Component {
           </FormGroup>
           <div>
             <Button
-              className='TransactionButton'
+              bsStyle="danger"
+              bsSize="small"
               onClick={this.conductTransaction}>
               Submit
             </Button>

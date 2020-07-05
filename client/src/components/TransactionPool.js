@@ -56,6 +56,8 @@ class TransactionPool extends Component {
         }
         <hr />
         <Button
+          bsStyle="danger"
+          bsSize="small"
           onClick={this.fetchMineTransactions}>
           Mine the Transactions
         </Button>
