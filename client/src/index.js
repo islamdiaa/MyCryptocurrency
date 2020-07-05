@@ -12,7 +12,7 @@ render(
   <Router history={history}>
     <Switch>
       <Route exact={true} path='/' component={App}/>
-      <Route path='/block' component={Blocks}/>
+      <Route path='/blocks' component={Blocks}/>
       <Route path='/conduct' component={ConductTransaction}/>
       <Route path='/transactions' component={TransactionPool}/>
     </Switch>
