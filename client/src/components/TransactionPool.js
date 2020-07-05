@@ -43,7 +43,7 @@ class TransactionPool extends Component {
     return (
       <div className='TransactionPool'>
         <div><Link to='/'>Home</Link></div>
-        <h3>Trsansction Pool</h3>
+        <h3>Transaction Pool</h3>
         {
           this.state.transactionPool.map(transaction => {
             return (
