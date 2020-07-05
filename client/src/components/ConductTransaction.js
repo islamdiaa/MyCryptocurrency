@@ -52,23 +52,27 @@ class ConductTransaction extends Component {
           })
         }
         <br />
-        <div className='ConductTransaction'>
-          <FormGroup className='TransactionInput'>
-            <FormControl
-              input='text'
-              placeholder='recipient'
-              value={this.state.recipient}
-              onChange={this.updateRecipient}
-            />
-          </FormGroup>
-          <FormGroup className='TransactionInput'>
-            <FormControl
-              input='number'
-              placeholder='amount'
-              value={this.state.amount}
-              onChange={this.updateAmount}
-            />
-          </FormGroup>
+        <div>
+          <div className='ConductTransaction'>
+            <FormGroup>
+              <FormControl
+                input='text'
+                placeholder='recipient'
+                value={this.state.recipient}
+                onChange={this.updateRecipient}
+                className='TransactionInput'
+              />
+            </FormGroup>
+            <FormGroup>
+              <FormControl
+                input='number'
+                placeholder='amount'
+                value={this.state.amount}
+                onChange={this.updateAmount}
+                className='TransactionInput'
+              />
+            </FormGroup>
+          </div>
           <div>
             <Button
               bsStyle="danger"

@@ -43,15 +43,16 @@ a, a:hover {
 }
 
 .ConductTransaction {
-  margin: 10px;
-}
-
-.TransactionInput {
-  margin: 5px;
+  margin-left: 40%;
+  margin-right: 40%;
 }
 
 .TransactionButton {
   margin: 15px;
   width: 100px;
   height: 30px;
+}
+
+.TransactionInput {
+  text-align: center;
 }
