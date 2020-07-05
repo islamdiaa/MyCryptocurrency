@@ -14,6 +14,17 @@ const path = require('path');
 const DEFAULT_PORT = 3001;
 let PEER_PORT;
 
+const isDevelopment = process.env.ENV === 'development';
+
+const REDIS_URL =
+	isDevelopment ?
+	'redis://127.0.0.1:6379' :
+	'redis://h:pacf25dbb64acdf5bd2a39b31ca4b1a42b1c8102d1dcc35280afdeb3d79ad7992@ec2-34-197-70-65.compute-1.amazonaws.com:19539';
+
+console.log("debugging");
+console.log(REDIS_URL);
+console.log(isDevelopment);
+
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 if (process.env.GENERATE_PEER_PORT === 'true') {
@@ -24,7 +35,7 @@ const app = express();
 const bc = new Blockchain();
 const tp = new TransactionPool();
 const wallet = new Wallet();
-const pubsub = new PubSub(bc, tp);
+const pubsub = new PubSub(bc, tp, REDIS_URL);
 const miner = new Miner(bc, tp, wallet, pubsub);
 
 app.use(bodyParser.json());
@@ -77,9 +88,6 @@ app.get('*', (req, res) => {
 });
 
 const syncWithRootState = () => {
-	if (!PEER_PORT) {
-		return;
-	}
 	request({url: `${ROOT_NODE_ADDRESS}/api/blocks`}, (error, response, body) => {
 		if (!error && response.statusCode === 200) {
 			const rootChain = JSON.parse(body);
@@ -101,10 +109,16 @@ const syncWithRootState = () => {
 	});
 }
 
+const PORT = process.env.PORT || PEER_PORT || DEFAULT_PORT;
+
 app.listen(
-	PEER_PORT || DEFAULT_PORT,
+	PORT,
 	() => {
-		console.log(`Listen on port ${PEER_PORT || DEFAULT_PORT}`);
-		syncWithRootState();
+		console.log(
+			`Listen on port ${PORT}`
+		);
+		if (PORT !== DEFAULT_PORT) {
+	    syncWithRootState();
+	  }
 	}
 );
