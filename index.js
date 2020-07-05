@@ -21,10 +21,6 @@ const REDIS_URL =
 	'redis://127.0.0.1:6379' :
 	'redis://h:pacf25dbb64acdf5bd2a39b31ca4b1a42b1c8102d1dcc35280afdeb3d79ad7992@ec2-34-197-70-65.compute-1.amazonaws.com:19539';
 
-console.log("debugging");
-console.log(REDIS_URL);
-console.log(isDevelopment);
-
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 if (process.env.GENERATE_PEER_PORT === 'true') {
